@@ -29,7 +29,7 @@ will be converted to
 
 The task allows for an the user to either override the current css file or to use a suffix at the end of the file. 
 
-I have included a example build file to use the ANT task at https://github.com/jaconel/PrefixrAntTask/blob/master/src/prefixr.build.xml.
+I have included a example build file to use the ANT task at https://gist.github.com/1895209.
 
 
 In order to use the task you can either clone this directory and build the JAR yourself or use the pre-built jar included in the source directory.
