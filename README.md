@@ -32,7 +32,7 @@ The task allows for an the user to either override the current css file or to us
 I have included a example build file to use the ANT task at https://gist.github.com/1895209.
 
 
-In order to use the task you can either clone this directory and build the JAR yourself or use the pre-built jar included in the source directory.
+In order to use the task you can either clone this directory and build the JAR yourself or use the pre-built jar available from this repository's download section.
 
 Ensure that the JAR is available some where on your class path and add the following to the top of your build file 
 
