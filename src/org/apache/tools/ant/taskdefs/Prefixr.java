@@ -41,7 +41,7 @@ import org.apache.tools.ant.Task;
 import org.apache.tools.ant.types.FileSet;
 
 /**
- * Prefixr task for to convert HTML 5 entities to corresponding browser specific entities.
+ * Prefixr task to convert CSS 3 entities to corresponding browser specific entities.
  *
  * This task makes use of the Prefixr API and thus requires to connect to an external url.
  * 

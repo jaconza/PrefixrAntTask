@@ -1,7 +1,6 @@
-Project Name: PrefixrAntTask
-Date Initiated: 08 February 2011
+= PrefixrAntTask
 
-Intorduction
+== Introduction
 
 This project is the creation of an Apache Ant task for use of the Prefixr api (http://prefixr.com/). It will 
 allow developers to make use of css3 styles and replace these with the correct prefix at build/deploy time.
@@ -20,5 +19,5 @@ will be converted to
 .class{
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
-	border-radius: 5px;
+  border-radius: 5px;
 }
