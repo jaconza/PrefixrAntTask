@@ -1,3 +1,17 @@
+/*
+ * Copyright 2012 Jaco Nel <jaco.nel007@gmail.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.apache.tools.ant.taskdefs;
 
 import java.io.BufferedReader;
@@ -19,6 +33,8 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.Task;
@@ -38,12 +54,10 @@ public class Prefixr extends Task {
 	 * The location of the Prefixr API
 	 */
 	private final String prefixrUrl = "http://prefixr.com/api/index.php";
-
 	/**
 	 * Vector containing all the filesets added for the taskdef.
 	 */
 	private Vector filesets = new Vector();
-
 	/**
 	 * The suffix that will be used when saving the response from the Prefixr api.
 	 *
@@ -53,7 +67,6 @@ public class Prefixr extends Task {
 	 * Defaults to prefixr.
 	 */
 	private String suffix = "prefixr";
-
 	/**
 	 * Variable to decide whether or not to over ride the existing style sheet file
 	 * with the new contents.
@@ -138,10 +151,24 @@ public class Prefixr extends Task {
 				File cssFile = new File( ds.getBasedir(), filename );
 
 				if ( cssFile.exists() ) {
+					// where is the file?
 					String fullPathToCss = cssFile.getAbsolutePath();
-					String css = "";
-					
+
+					// where will we be writing the results to?
+					String outputFilePath = "";
+					if ( this.override == true ) {
+						outputFilePath = fullPathToCss;
+					} else {
+						outputFilePath = fullPathToCss.replaceFirst( "\\.css", "." + this.suffix + ".css" );
+					}
+
+					// some informational message
+					System.out.println(
+						"Prefixing css file found at " + fullPathToCss + " and saving result to '" + outputFilePath + "'."
+					);
+
 					// open file and read contents
+					String css = "";
 					try {
 						css = readFile( fullPathToCss );
 					} catch ( IOException fileException ) {
@@ -152,18 +179,15 @@ public class Prefixr extends Task {
 					// contact the api and read the response
 					try {
 						cssOut = contactPrefixr( css );
-					} catch (Exception prefixrException) {
+					} catch ( Exception prefixrException ) {
 						throw new BuildException( "Error while attempting to contact the Prefixr Api, received error message: " + prefixrException.toString() );
 					}
 
-					String outputFilPath = "";
-					if (this.override == true) {
-						outputFilPath = fullPathToCss;
-					} else {
-						outputFilPath = fullPathToCss.replaceFirst( "\\.css", "." + this.suffix + ".css");
+					try {
+						writeFile( cssOut, outputFilePath );
+					} catch ( IOException writeExeption ) {
+						throw new BuildException( "Error while attempting to write result to file '" + outputFilePath + "', received error message: " + writeExeption.toString() );
 					}
-					// writeFile( cssOut, "/var/www/Personal/style.prefixr.css" );
-					System.out.println( outputFilPath );
 				}
 			}
 		}
