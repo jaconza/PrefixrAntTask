@@ -54,4 +54,8 @@ If the override option is set to false a suffix is required. The suffix will be 
 will save the results for a file named styles.css to styles.out.css. This option is usefull if you do not wish to override your current css.
 
 For more information on using Filesets, please refer to the [Apache documentation](http://ant.apache.org/manual/Types/fileset.html).
+
+## Issues
+
+If you find any issue or have suggestion to improve the tool, please feel free to contribute, log an issue or contact me on [twitter](https://twitter.com/jaco_nel007).
     
