@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Prefixr Ant Task : An Ant task that makes use of Prefixr API for converting CSS3 attributes to the corresponding vendor specific syntax" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Prefixr Ant Task</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/jaconel/PrefixrAntTask">Fork Me on GitHub</a>
+
+          <h1 id="project_title">Prefixr Ant Task</h1>
+          <h2 id="project_tagline">An Ant task that makes use of Prefixr API for converting CSS3 attributes to the corresponding vendor specific syntax</h2>
+
+          <section id="downloads">
+            <a class="zip_download_link" href="https://github.com/jaconel/PrefixrAntTask/zipball/master">Download this project as a .zip file</a>
+            <a class="tar_download_link" href="https://github.com/jaconel/PrefixrAntTask/tarball/master">Download this project as a tar.gz file</a>
+          </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>What is this?</h1>
+
+<p>This project is the creation of an Apache Ant task for use of the <a href="http://prefixr.com/">Prefixr API</a>. It will 
+allow developers to make use of css3 styles and replace these with the correct prefix at build/deploy time.</p>
+
+<p>It will allow for a user to set multiple filesets to be scanned for css content and call the Prefixr Api to prefix 
+the CSS3 styles with the cross browser spesific styles.</p>
+
+<p>For example a css file containing the following styles</p>
+
+<div class="highlight">
+<pre><span class="nc">.class</span> <span class="p">{</span>
+  <span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<p>will be converted to </p>
+
+<div class="highlight">
+<pre><span class="nc">.class</span><span class="p">{</span>
+  <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+  <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+  <span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h1>How do I use it?</h1>
+
+<p>The task allows for an the user to either override the current css file or to use a suffix at the end of the file. </p>
+
+<p>I have included a example build file to use the ANT task at in the following <a href="https://gist.github.com/1895209">gist</a>.</p>
+
+<p>In order to use the task you can either clone this directory and build the JAR yourself or use the pre-built jar available from this repository's <a href="https://github.com/jaconel/PrefixrAntTask/downloads">download section</a>.</p>
+
+<p>Ensure that the JAR is available some where on your class path and add the following to the top of your build file </p>
+
+<div class="highlight">
+<pre><span class="nt">&lt;taskdef</span> <span class="na">name=</span><span class="s">"prefixr"</span> <span class="na">classname=</span><span class="s">"org.apache.tools.ant.taskdefs.Prefixr"</span> <span class="na">classpath=</span><span class="s">"Prefixr.jar"</span> <span class="nt">/&gt;</span>
+</pre>
+</div>
+
+
+<p>once this has been done, you can use the task def in any of your targets in the following way</p>
+
+<div class="highlight">
+<pre><span class="nt">&lt;prefixr</span> <span class="na">override=</span><span class="s">"false"</span> <span class="na">suffix=</span><span class="s">"out"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;fileset</span> <span class="na">dir=</span><span class="s">"/path/to/css/folder"</span> <span class="na">includes=</span><span class="s">"**/*.css"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/prefixr&gt;</span>
+</pre>
+</div>
+
+
+<p>When the override option is set to true, the suffix option will be ignored and your current css files will be overriden with the results received from prefixr.</p>
+
+<p>If the override option is set to false a suffix is required. The suffix will be used when creating a new file to save your css to. For example, the above code
+will save the results for a file named styles.css to styles.out.css. This option is usefull if you do not wish to override your current css.</p>
+
+<p>For more information on using Filesets, please refer to the <a href="http://ant.apache.org/manual/Types/fileset.html">Apache documentation</a>.</p>
+
+<h1>What if I find an issues</h1>
+
+<p>If you find any issue or have suggestion to improve the tool, please feel free to contribute, log an issue or contact me on twitter <a href="https://twitter.com/jaco_nel007">jaco_nel007</a>.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Prefixr Ant Task maintained by <a href="https://github.com/jaconel">jaconel</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-30742007-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+
+  </body>
+</html>
